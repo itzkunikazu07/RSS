@@ -19,7 +19,7 @@ jobs:
           yourInstagram: itz.kevin._1
           listOfInstagrams: itz.kenkaneki, itz.kevin._1, itz.kunal_1
       - name: Commit files
-        if: ${{ success() && steps.rss.outputs.RSS_STATUS == 'success' }}
+        if: ${{ success() }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
