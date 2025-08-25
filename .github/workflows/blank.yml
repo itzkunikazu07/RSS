@@ -1,4 +1,4 @@
-# This .
+# 
 name: RSS
 on:
   schedule:
