@@ -4,7 +4,7 @@ const xmlbuilder = require('xmlbuilder');
 const { instagramGetUrl } = require("instagram-url-direct");
 
 // File paths
-const linksFilePath = path.join(__dirname, 'Files/reels_links.txt');
+const linksFilePath = path.join(__dirname, 'Files/extracted_reels_links.txt');
 const historyFilePath = path.join(__dirname, 'history.json');
 const rssFilePath = path.join(__dirname, 'rss_feed.xml');
 
