@@ -24,7 +24,7 @@ if (fs.existsSync(linksFilePath)) {
 const newLinks = links.filter(link => !history.includes(link));
 
 // Take the latest 20 links
-const latestLinks = newLinks.slice(0, 20);
+const latestLinks = newLinks.slice(0, 25);
 
 async function buildRSS() {
     const rss = xmlbuilder.create('rss', { version: '1.0', encoding: 'UTF-8' })
