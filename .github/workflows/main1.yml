@@ -24,7 +24,7 @@ jobs:
         run: |
           git clone https://itzkunikazu07:${TOKEN}@github.com/itzkunikazu07/Files.git
           npm install xmlbuilder instagram-url-direct
-          node index.js
+          node index1.js
           
       - name: Upload file to repo
         uses: stefanzweifel/git-auto-commit-action@v5
