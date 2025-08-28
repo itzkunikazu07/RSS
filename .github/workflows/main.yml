@@ -22,7 +22,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git clone https://itzkunikazu07:${TOKEN}@github.com/itzkunikazu07/Files.git
+          git clone https://github.com/itzkunikazu07/Files.git
           npm install xmlbuilder instagram-url-direct
           node index.js
           
