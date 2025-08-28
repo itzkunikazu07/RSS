@@ -42,7 +42,7 @@ jobs:
 
       - name: Push changes
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git remote set-url origin https://itzkunikazu07:${TOKEN}@github.com/itzkunikazu07/RSS.git
           git push origin main
