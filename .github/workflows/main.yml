@@ -1,9 +1,9 @@
 name: Node Script & Upload Output
 
 on:
+  schedule:
+    - cron: '30 2 * * *'  # Every day at 8:00 AM IST (2:30 AM UTC)
   workflow_dispatch:
-  push:
-    branches: [main]
 
 jobs:
   run-and-upload:
