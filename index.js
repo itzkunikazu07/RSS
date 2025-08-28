@@ -23,18 +23,65 @@ if (fs.existsSync(linksFilePath)) {
 // Filter out duplicates
 const newLinks = links.filter(link => !history.includes(link));
 
-// Take the latest 20 links
+// Take the latest 25 links
 const latestLinks = newLinks.slice(0, 25);
 
 async function buildRSS() {
     const rss = xmlbuilder.create('rss', { version: '1.0', encoding: 'UTF-8' })
         .att('version', '2.0')
+        .att('xmlns:media', 'http://search.yahoo.com/mrss/') // Add media namespace declaration
         .ele('channel')
         .ele('title', 'Instagram Reels Feed')
         .up()
         .ele('link', 'https://instagram.com')
         .up()
         .ele('description', 'Latest Instagram Reels')
+        .up();
+
+    for (const link of latestLinks) {
+        try {
+            const data = await instagramGetUrl(link);
+
+            let caption = '';
+            if (data && data.post_info && data.post_info.caption) {
+                caption = data.post_info.caption;
+            }
+
+            let videoUrl = '';
+            let thumbnail = '';
+            if (data && data.media_details && data.media_details.length > 0) {
+                videoUrl = data.media_details[0].url || '';
+                thumbnail = data.media_details[0].thumbnail || '';
+            }
+
+            const item = rss.ele('item')
+                .ele('title', caption || 'Instagram Reel')
+                .up()
+                .ele('link', link)
+                .up()
+                .ele('description', `${caption || 'Watch the Instagram Reel'}${videoUrl ? `<br><a href="${videoUrl}">Direct Video</a>` : ''}`)
+                .up()
+                .ele('guid', link)
+                .up()
+                .ele('pubDate', new Date().toUTCString())
+                .up();
+
+            if (thumbnail) {
+                item.ele('media:thumbnail', { url: thumbnail }).up();
+            }
+            item.up();
+        } catch (err) {
+            // Skip on error, no extra logging
+            continue;
+        }
+    }
+
+    fs.writeFileSync(rssFilePath, rss.end({ pretty: true }));
+    history = [...history, ...latestLinks];
+    fs.writeFileSync(historyFilePath, JSON.stringify(history, null, 2));
+}
+
+buildRSS();        .ele('description', 'Latest Instagram Reels')
         .up();
 
     for (const link of latestLinks) {
